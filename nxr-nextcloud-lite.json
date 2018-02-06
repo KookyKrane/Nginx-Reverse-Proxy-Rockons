@@ -1,0 +1,91 @@
+{
+  "Nextcloud lite (NXR)": {
+    "containers": {
+      "nxr-nextcloud-lite": {
+        "image": "nextcloud",
+        "tag": "latest",
+        "launch_order": 1,
+        "ports": {
+          "80": {
+            "description": "The port the Nextcloud web site is publish and accessible from other containers.",
+            "host_default": 8039,
+            "label": "Nextcloud UI",
+            "protocol": "tcp",
+            "ui": true
+          }
+        },
+        "volumes": {
+          "/var/www/html": {
+            "description": "Choose a volume for Nextcloud core application.",
+            "label": "Nextcloud Core",
+            "index": 1
+          },
+          "/var/www/html/custom_apps": {
+            "description": "Choose a volume for Nextcloud custom applications.",
+            "label": "Nextcloud AddOn",
+            "index": 2
+          },
+          "/var/www/html/config": {
+            "description": "Choose a volume for Nextcloud local configuration.",
+            "label": "Nextcloud Config",
+            "index": 3
+          },
+          "/var/www/html/data": {
+            "description": "Choose a volume for Nextcloud data.",
+            "label": "Nextcloud Data",
+            "index": 4
+          }
+        },
+        "environment": {
+          "VIRTUAL_HOST": {
+            "description": "Specify the virtual host name to add to the nginx proxy.",
+            "label": "Virtual Host",
+            "index": 1
+          },
+          "LETSENCRYPT_HOST": {
+            "description": "Specify the virtual host name for letsencrypt - likely the same as the virtual host.",
+            "label": "Letsencrypt host",
+            "index": 2
+          },
+          "LETSENCRYPT_EMAIL": {
+            "description": "Specify an email for letsencrypt.",
+            "label": "Letsencrypt email",
+            "index": 3
+          },
+          "LETSENCRYPT_TEST": {
+            "description": "Specify using letsencrypt test or production certificate generation.",
+            "label": "Letsencrypt test(true/false)",
+            "index": 4
+          },
+          "NEXTCLOUD_ADMIN_USER": {
+            "description": "Choose an administrative user name.",
+            "label": "Admin user",
+            "index": 5
+          },
+          "NEXTCLOUD_ADMIN_PASSWORD": {
+            "description": "Choose an administrative password.",
+            "label": "Admin password",
+            "index": 6
+          },
+          "SQLITE_DATABASE": {
+            "description": "Specify the database.",
+            "label": "Database",
+            "index": 7
+          }
+        },
+        "opts": [
+          ["--net", "rockon_br0"],
+          ["-h", "nxr-nextcloud-lite"]
+        ]
+      }
+    },
+    "description": "This NXR Rockon installs Nextcloud, a cloud filestorage and sharing archetecture. ",
+    "more_info": "This Rockon installs Nextcloud in a custom docker network, rockon_br0, and works with the jwilder Nginx-proxy web proxy container to provide secure connections. The lite version uses a flat file database which may be suitable for small team workloads.",
+    "ui": {
+      "https": false,
+      "slug": ""
+    },
+    "version": "0.1",
+    "website": "https://github.com/nextcloud/docker"
+  }
+}

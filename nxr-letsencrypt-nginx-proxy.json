@@ -1,0 +1,34 @@
+{
+  "Nginx Proxy Lets Encrypt Companion (NXR)": {
+    "containers": {
+      "nxr-letsencrypt-nginx-proxy-companion": {
+        "image": "jrcs/letsencrypt-nginx-proxy-companion",
+        "tag": "latest",
+        "launch_order": 1,
+        "volumes": {
+          "/etc/nginx/certs": {
+            "description": "Choose a volume for generated certificates and keys.",
+            "label": "Certs n Keys"
+          },
+          "/etc/nginx/vhost.d": {
+            "description": "Choose a volume for the vhost.d config directory. ",
+            "label": "vhosts"
+          },
+          "/usr/share/nginx/html": {
+            "description": "Choose a volume to write the challenge files. ",
+            "label": "lets encrypt challenge"
+          }
+        },
+        "opts": [
+          ["--net", "rockon_br0"],
+          ["-v", "/var/run/docker.sock:/var/run/docker.sock:ro"],
+          ["-h", "nxr-letsencrypt-nginx-proxy-companion"]
+        ]
+      }
+    },
+    "description": "Use this NXR Rockon with the Nginx Proxy to auto generate certificates and private key with the Lets Encrypt protocol. ",
+    "more_info": "This Rockon uses the JrCs/docker-letsencrypt-nginx-proxy-companion docker image and works with the jwilder reverse proxy for Nginx to automatically configure letsencrypt.",
+    "version": "0.1",
+    "website": "https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion"
+  }
+}

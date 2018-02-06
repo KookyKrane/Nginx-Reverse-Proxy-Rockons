@@ -1,0 +1,69 @@
+{
+  "Media Wiki lite (EO)": {
+    "containers": {
+      "eo-media-wiki-lite": {
+        "image": "enigmaomega/eo-mediawiki:latest",
+        "tag": "stable",
+        "launch_order": 1,
+        "ports": {
+          "80": {
+            "description": "The port for the wiki websie.",
+            "host_default": 8038,
+            "label": "Web port",
+            "protocol": "tcp",
+            "ui": true
+          }
+        },
+        "volumes": {
+          "/var/www/html": {
+            "description": "Choose a volume for the core application.",
+            "label": "Core App"
+          },
+          "/var/www/data": {
+            "description": "Choose a volume for the sqlite database.",
+            "label": "sqlite DB"
+          },
+          "/var/www/html/images": {
+            "description": "Choose a volume for wiki uploads.",
+            "label": "Wiki uploads"
+          }
+        },
+        "environment": {
+          "VIRTUAL_HOST": {
+            "description": "Specify the virtual host name to add to the nginx proxy.",
+            "label": "Virtual host",
+            "index": 1
+          },
+          "LETSENCRYPT_HOST": {
+            "description": "Specify the virtual host name for letsencrypt - likely the same as the virtual host.",
+            "label": "Letsencrypt host",
+            "index": 2
+          },
+          "LETSENCRYPT_EMAIL": {
+            "description": "Specify an email for letsencrypt.",
+            "label": "Letsencrypt email",
+            "index": 3
+          },
+          "LETSENCRYPT_TEST": {
+            "description": "Specify using letsencrypt test or production certificate generation.",
+            "label": "Letsencrypt test(true/false)",
+            "index": 4
+          }
+        },
+        "opts": [
+          ["--net", "rockon_br0"],
+          ["-h", "eo-media-wiki-lite"],
+          ["-v", "/var/run/docker.sock:/docker.sock"]
+        ]
+      }
+    },
+    "description": "This Enigma Omega Rockon installs Mediawiki, a popular wiki framework, with a share for sqlite data and with modification to the apache virtual host for security. ",
+    "more_info": "This Rockon installs the Media Wiki official image and works with the Nginx-proxy. This requires a Mysql compatible database. ",
+    "ui": {
+      "https": false,
+      "slug": ""
+    },
+    "version": "0.1",
+    "website": "https://hub.docker.com/_/mediawiki/"
+  }
+}

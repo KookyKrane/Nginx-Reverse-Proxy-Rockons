@@ -1,0 +1,29 @@
+{
+  "Nginx Reverse Proxy Apache2 Utils (NXR)": {
+    "containers": {
+      "nxr-nginx-reverse-proxy-apache2-utils": {
+        "image": "xmartlabs/htpasswd",
+        "tag": "latest",
+        "launch_order": 1,
+        "volumes": {
+          "/htpasswd": {
+            "description": "Choose a volume for holding host password files.",
+            "label": "HTPasswd Storage"
+          }
+        },
+        "opts": [
+          ["--net", "rockon_br0"],
+          ["-h", "nxr-nginx-reverse-proxy-apache2-utils"]
+        ]
+      }
+    },
+    "description": "An Apache2-utils Rockon for the Nginx reverse proxy. ",
+    "more_info": "This Rockon installs the xmartlabs docker-htpasswd image which provides apache2-utils. Use this to manage the Nginx reverse proxy basic authentication. ",
+    "version": "0.1",
+    "website": "https://hub.docker.com/_/nginx/",
+    "ui": {
+      "https": false,
+      "slug": ""
+    }
+  }
+}

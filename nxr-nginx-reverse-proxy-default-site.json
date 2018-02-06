@@ -1,0 +1,50 @@
+{
+  "Nginx Reverse Proxy Default Site (NXR)": {
+    "containers": {
+      "nxr-nginx-reverse-proxy-default-site": {
+        "image": "nginx",
+        "tag": "latest",
+        "launch_order": 1,
+        "ports": {
+          "80": {
+            "description": "The standard HTTP port the proxy server will listen to for requests.",
+            "host_default": 8083,
+            "label": "HTTP Port",
+            "protocol": "tcp",
+            "ui": false
+          }
+        },
+        "volumes": {
+          "/usr/share/nginx/html": {
+            "description": "Choose a volume for static files.",
+            "label": "Static Storage"
+          }
+        },
+        "environment": {
+          "VIRTUAL_HOST": {
+            "description": "Specify the virtual host name to add to the nginx proxy.",
+            "label": "Virtual Host",
+            "index": 1
+          },
+          "NGINX_HOST": {
+            "description": "Specify the virtual host again for the default host.",
+            "label": "Default Host",
+            "index": 2
+          }
+        },
+        "opts": [
+          ["--net", "rockon_br0"],
+          ["-h", "nxr-nginx-reverse-proxy-default-site"]
+        ]
+      }
+    },
+    "description": "This NXR Rockon installs the offical Nginx docker image to use as the default site for the Nginx Web Proxy. ",
+    "more_info": "",
+    "version": "0.1",
+    "website": "https://hub.docker.com/_/nginx/",
+    "ui": {
+      "https": false,
+      "slug": ""
+    }
+  }
+}

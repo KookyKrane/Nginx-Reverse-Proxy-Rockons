@@ -1,0 +1,42 @@
+{
+  "DDClient (NXR)": {
+    "containers": {
+      "nxr-linuxserver-ddclient": {
+        "image": "linuxserver/ddclient",
+        "tag": "latest",
+        "launch_order": 1,
+        "volumes": {
+          "/config": {
+            "description": "Choose a share for where ddclient should store its config files.",
+            "label": "Config"
+          }
+        },
+        "environment": {
+          "PUID": {
+            "description": "User ID for the config storage.",
+            "label": "UserID",
+            "index": 1
+          },
+          "PGID": {
+            "description": "Group ID for the config storage.",
+            "label": "GroupID",
+            "index": 2
+          },
+          "TZ": {
+            "description": "timezone information eg Europe/London.",
+            "label": "Timezone",
+            "index": 3
+          }
+        },
+        "opts": [
+          ["--net", "rockon_br0"],
+          ["-h", "nxr-linuxserver-ddclient"]
+        ]
+      }
+    },
+    "description": "DDClient is a Perl client used to update dynamic DNS entries for accounts on Dynamic DNS Network Service Provider.",
+    "more_info": "DDClient was originally written by Paul Burry and is now mostly by wimpunk. It has the capability to update more than just dyndns and it can fetch your WAN-ipaddress in a few different ways. ",
+    "version": "0.1",
+    "website": "https://hub.docker.com/r/linuxserver/ddclient/"
+  }
+}

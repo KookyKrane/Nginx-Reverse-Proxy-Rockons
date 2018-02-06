@@ -1,0 +1,62 @@
+{
+  "Nginx Reverse Proxy (NXR)": {
+    "containers": {
+      "nxr-nginx-reverse-proxy": {
+        "image": "jwilder/nginx-proxy",
+        "tag": "latest",
+        "launch_order": 1,
+        "ports": {
+          "80": {
+            "description": "The standard HTTP port the proxy server will listen to for requests.",
+            "host_default": 8082,
+            "label": "HTTP Port",
+            "protocol": "tcp",
+            "ui": false
+          },
+          "443": {
+            "description": "The standard HTTP port the proxy server will listen to for requests.",
+            "host_default": 8444,
+            "label": "HTTPS Port",
+            "protocol": "tcp",
+            "ui": false
+          }
+        },
+        "volumes": {
+          "/etc/nginx/htpasswd": {
+            "description": "Choose a volume for basic authentication files.",
+            "label": "Basic Auth"
+          },
+          "/etc/nginx/certs": {
+            "description": "Choose a volume for storing certificates and keys.",
+            "label": "Certs n Keys"
+          },
+          "/etc/nginx/vhost.d": {
+            "description": "Choose a volume for the vhost.d config directory. ",
+            "label": "vhosts"
+          },
+          "/usr/share/nginx/html": {
+            "description": "Choose a volume to write the challenge files. ",
+            "label": "lets encrypt challenge"
+          }
+        },
+        "environment": {
+          "DEFAULT_HOST": {
+            "description": "Choose the name of the container hosting the default website for proxied requests.",
+            "label": "Default host",
+            "index": 1
+          }
+        },
+        "opts": [
+          ["--net", "rockon_br0"],
+          ["-v", "/var/run/docker.sock:/tmp/docker.sock:ro"],
+          ["-h", "nxr-nginx-reverse-proxy"],
+          ["--label", "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"]
+        ]
+      }
+    },
+    "description": "This NXR Rockon implements a reverse proxy by combining the offical Nginx image and the docker-gen image in a single image. Use this to run your Rockons through a secure HTTPS web proxy that can be exposted with NAT via a gateway or router over the Internet. ",
+    "more_info": "This Rockon implements a reverse web proxy for secure Web traffic with the jwilder nginx-proxy docker image. This docker container sets-up nginx and docker-gen. The docker-gen service generates reverse proxy configs for nginx and reloads nginx when containers are started and stopped. ",
+    "version": "0.1",
+    "website": "https://github.com/jwilder/nginx-proxy"
+  }
+}

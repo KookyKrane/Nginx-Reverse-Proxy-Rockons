@@ -1,0 +1,68 @@
+{
+	"FreshRSS (NXR)": {
+		"containers": {
+			"nxr-linuxserver-freshrss": {
+				"image": "linuxserver/freshrss",
+				"launch_order": 1,
+				"ports": {
+					"80": {
+						"description": "FreshRSS Web UI Port",
+						"host_default": 3093,
+						"label": "WebUI port",
+						"protocol": "tcp",
+						"ui": true
+					}
+				},
+				"volumes": {
+					"/config": {
+						"description": "local storage for freshrss site files",
+						"label": "Config"
+					}
+				},
+				"environment": {
+          "VIRTUAL_HOST": {
+            "description": "Specify the virtual host name to add to the nginx proxy.",
+            "label": "Virtual Host",
+            "index": 1
+          },
+          "LETSENCRYPT_HOST": {
+            "description": "Specify the virtual host name for letsencrypt - likely the same as the virtual host.",
+            "label": "Letsencrypt Host",
+            "index": 2
+          },
+          "LETSENCRYPT_EMAIL": {
+            "description": "Specify an email for letsencrypt.",
+            "label": "Letsencrypt Email",
+            "index": 3
+          },
+          "LETSENCRYPT_TEST": {
+            "description": "Specify using letsencrypt test or production certificate generation.",
+            "label": "Letsencrypt test(true/false)",
+            "index": 4
+          },
+					"PUID": {
+						"description": "Enter a valid UID to run as. It must have full permissions to all Shares mapped in the previous step.",
+						"label": "UID",
+						"index": 5
+					},
+					"PGID": {
+						"description": "Enter a valid GID to use along with the above UID. It (or the above UID) must have full permissions to all Shares mapped in the previous step.",
+						"label": "GID",
+						"index": 6
+					}
+				},
+        "opts": [
+          ["--net", "rockon_br0"],
+          ["-h", "nxr-linuxserver-freshrss"]
+        ]
+			}
+		},
+		"description": "FreshRSS is a free, self-hostable aggregator for rss feeds",
+		"more_info": "Note, this Rockon is designed to work with the Nginx Web reverse proxy and letsencrypt. ",
+		"ui": {
+			"slug": ""
+		},
+		"website": "https://freshrss.org/",
+		"version": "1.0"
+	}
+}
